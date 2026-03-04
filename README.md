@@ -1,8 +1,8 @@
 # IngegneriaSistemiSoftware
  Laboratorio di <b>Ingegneria dei Sistemi Software</b> a.a. 2025/2026 di Cognome Nome Matricola
 
- [Testo di riferimento:](https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf)
- <b>[Indice personale:](https://tomassone.github.io/IngegneriaSistemiSoftware/)</b>
+ [Testo di riferimento:](https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf)<br>
+ [Indice personale:](https://tomassone.github.io/IngegneriaSistemiSoftware/)
 
  <h2 id="ParteA">Parte A: Dai programmi ai Sistemi a Microservizi</h2>
 
