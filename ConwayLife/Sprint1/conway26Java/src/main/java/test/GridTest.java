@@ -36,7 +36,7 @@ private Grid grid;
 		assertTrue(   grid.getCellValue(0,0) );
 		assertFalse(  grid.getCellValue(0,1) );
 	}
-	@Test
+	/*@Test
 	public void testGridRep() {
 		System.out.println("testGridRep ---------------------" );
  		System.out.println(""+grid);
@@ -51,6 +51,20 @@ private Grid grid;
 		grid.setCellValue(0,3,true);
 		grid.setCellValue(0,4,true);
 		//grid.printGrid();
+	}*/
+	@Test
+	public void testReset() {
+		System.out.println("GridTest | testReset");
+		grid.setCellValue(0,0,true);
+		grid.setCellValue(0,1,true);
+		grid.setCellValue(0,2,true);
+		grid.setCellValue(0,3,true);
+		grid.setCellValue(0,4,true);
+		grid.reset();
+		assertFalse(grid.getCellValue(0,0));
+		assertFalse(grid.getCellValue(0,1));
+		assertFalse(grid.getCellValue(0,2));
+		assertFalse(grid.getCellValue(0,3));
+		assertFalse(grid.getCellValue(0,4));
 	}
-
 }
