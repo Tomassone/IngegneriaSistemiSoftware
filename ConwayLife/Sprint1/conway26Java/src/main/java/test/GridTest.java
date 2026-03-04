@@ -10,7 +10,7 @@ public class GridTest {
 	private static final int nRows=5;
 	private static final int nCols=5;
 	
-private Grid grid;
+private IGrid grid;
 
 	@Before
 	public void setup() {

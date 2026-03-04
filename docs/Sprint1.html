@@ -92,7 +92,7 @@ public interface LifeInterface {
     IGrid getGrid();
     
     /** pulisce */
-    void resetGrids();
+    void resetGrid();
     
     /** Restituisce una rappresentazione grafica testuale della griglia*/
     //public String gridRep( );
@@ -148,7 +148,7 @@ public class GridTest {
 	private static final int nRows=5;
 	private static final int nCols=5;
 	
-private Grid grid;
+private IGrid grid;
 
 	@Before
 	public void setup() {
