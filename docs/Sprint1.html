@@ -47,12 +47,15 @@ R2  L’utente umano deve poter:
 
 <!-- Definizione entità citate nei requisiti (cosa intende il committente per Cell, Grid, Life?) -->
 
+<pre>
 Dopo aver parlato col committente, formalizzo i seguenti modelli di Cell, Grid e Life:
 
+package main.java.conway.domain;
+
 public interface ICell {
-	void setStatus(boolean v);
-	boolean isAlive();
-	void switchCellState();
+	void setStatus(boolean v); //perchè la cella ha la capacità di settare il proprio stato a vivo o morto (true or false)
+	boolean isAlive(); //deve potere rispondere se gli chiedo se è viva o morta
+	void switchCellState(); //perchè la cella deve poter passare da viva a morta o da morta a viva
 }
 
 public interface IGrid {
@@ -87,9 +90,10 @@ public interface LifeInterface {
     /** pulisce */
     void resetGrids();
     
-    /** Restituisce una rappresentazione grafica testuale della grglia*/
+    /** Restituisce una rappresentazione grafica testuale della griglia*/
     //public String gridRep( );
 }
+</pre>
 
 <h2>Problem analysis</h2>
  
