@@ -58,7 +58,11 @@ public interface ICell {
 	void switchCellState(); //perchè la cella deve poter passare da viva a morta o da morta a viva
 }
 
-public interface IGrid { //entità composta da celle (rispondiamo alla domanda: è unitaria o composta?); quante dimensioni ha?
+public interface IGrid { 
+/*    entità composta da celle (rispondiamo alla domanda: è unitaria o composta?); 
+      quante dimensioni ha? ne ha due;
+      quali sono queste dimensioni? altezza e lunghezza (tutte proprietà strutturali);
+*/
 	  public int getRowsNum();
 	  public int getColsNum();
 	  public void setCellValue(int x, int y, boolean state);
