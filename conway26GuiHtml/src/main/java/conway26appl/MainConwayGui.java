@@ -18,12 +18,12 @@ public class MainConwayGui  {
 		CommUtils.outgreen("DEBUG: La cartella /page si trova in: " + resource);
 		
 		Life life = new Life(20, 20);          
-        IOutDev webUI = new ConwayWebOutDev(server); //dispositivo i/o
+        IOutDev webUI = new ConwayWebOutDev(); //dispositivo i/o
         GameController controller = new LifeController(life, webUI); 
         server = new IoJavalin();
-        server.setController(controller);
+        ((ConwayWebOutDev) webUI).setController(controller);
         ((ConwayWebOutDev) webUI).setIoJavalin(server);
-
+        server.setOutDev(webUI);
 		
 	    MainConwayGui app = new MainConwayGui();
 	    System.out.println("MainConway | ENDS " );  

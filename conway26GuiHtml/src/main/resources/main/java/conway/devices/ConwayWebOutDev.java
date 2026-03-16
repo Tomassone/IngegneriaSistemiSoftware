@@ -2,6 +2,7 @@ package main.java.conway.devices;
 
 import conway.io.IoJavalin;
 import io.javalin.Javalin;
+import main.java.conway.domain.GameController;
 import main.java.conway.domain.ICell;
 import main.java.conway.domain.IGrid;
 import main.java.conway.domain.IOutDev;
@@ -11,8 +12,9 @@ public class ConwayWebOutDev implements IOutDev {
 
     private static final int GRID_SIZE = 20;
     private IoJavalin ioJavalin;
+    private GameController controller;
 
-    public ConwayWebOutDev(IoJavalin ioJavalin) {
+    public ConwayWebOutDev() {
     }
 
     @Override
@@ -45,6 +47,14 @@ public class ConwayWebOutDev implements IOutDev {
     
     public void setIoJavalin(IoJavalin ioJavalin) {
     	this.ioJavalin = ioJavalin;
+    }
+    
+    public void setController(GameController controller) {
+    	this.controller = controller;
+    }
+    
+    public GameController getController() {
+    	return controller;
     }
 
     @Override
