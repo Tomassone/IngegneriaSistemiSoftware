@@ -8,38 +8,38 @@
 -->
     
 </head>
-<title>Sprint1: conway26Java_v0</title>
- 
-    
+<title>Sprint3: conway26GuiHtml</title>
 
 <body>
 <div id="top">
-<h1>ConwayLife Sprint1</h1>
+<h1>ConwayLife Sprint3</h1>
 </div>  
 
 <div class="body">  
 
 <h2>Introduction</h2>
 <b>Goal</b>: Realizzazione in Java del
-<a href='https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.6'>GAME OF LIFE DI CONWAY</a>
-limitatamente al <b>requisito  R1</b>.
+<a href='https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.10'>GAME OF LIFE DI CONWAY</a>
 
 <h2>Requirements</h2>
 
  
 <!-- <div class="remark"> -->
 <pre>
-R1  Realizzare una versione in Java del gioco Life di Conway, come gioco zero-player. 
-    Il gioco consiste nell’introdurre una Griglia di Celle il cui stato (cella ‘viva’ o cella ‘morta’) 
-    evolve come stabilito dallle regole di ConwayLife
 
-R2  L’utente umano deve poter:
-     - specificare la configurazione iniziale della griglia del gioco	
-     - vedere l’evoluzione del gioco in forma opportuna 
-        (si veda <a href='https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#section.6.3'>Problema della vista del gioco</a> )
-     - fermare e far ripartire l’evoluzione del gioco
-     - pulire (a gioco fermo) la configurazione della griglia del gioco
-
+Il committente fissa i seguenti requisiti:
+	1. dotare il gioco Life. di una pagina HTML come dispositivo di I/O
+	2. la pagina deve costituire un componente esterno alla applicazione secondo la architettura riportata in IoJavalin
+	esterno alla applicazione
+	3. il gestore del gioco sarà l’utente che ha aperto per primo (owner) una pagina HTML collegata al gioco. . In altre
+	parole, solo la pagina dell’owner avrà pulsanti di comando START/STOP/CLEAN/EXIT attivi
+	4. la pagina HTML deve essere aggiornata in modo automatico man mano il gioco procede
+	5. un utente non owner che si collega mentre il gioco è in corso, dovrebbe vedere lo stato attuale della griglia in
+	modo corretto
+	6. opzionalmente: la pagina HTML deve indicare se il gioco continua anche nel caso di griglia vuota o di config-
+	urazione tabile
+	7. il deployment del gioco deve avvenire mediante Docker.
+	
 </pre>
   
 
@@ -278,24 +278,7 @@ public class ConwayLifeTest {
 
 <h2>Problem analysis</h2> 
 
-<pre>
-
-/* - Primo passo: chiedersi qual è l'architettura del sistema? -> In questo caso 
-abbiamo n enti distinti ed eterogeneti che comunicano tramite client/server 
-scambio di messaggi. Chiaramente sarà necessario un protocollo di comunicazione 
-per il trasporto del relativo payload. Oltre a quello servirà una standardizz.
-del linguaggio dei payload (grammatica -> secondo o terzo tipo). Avrò un inteprete 
-per il supplemento della comunicazione. Codice del server che non contiene la 
-logica applicativa ma che fa solo da intermediario.
-
- - In secondo luogo, come interagiscono i pezzi tra di loro. 
- - Infine il comportamento.
-
- - Effetto geyser: termine con cui il prof si riferisce al fatto che quando il server
- risponde al client il messaggio risulta provenira dall'architettura sottostante (dal 
- profondo, come un "geyser").*/
- 
-</pre>
+<img src="architettura_sistema.png"></img>
 
 <h2>Test plans</h2> 
 
