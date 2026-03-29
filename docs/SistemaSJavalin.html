@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+
+	<link rel="stylesheet" type="text/css" href="css/mystyle.css">
+	<!--
+    <script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+
+</head>
+<title>Sprint1: SistemaSJavalin</title>
+
+<body>
+	<div id="top">
+		<h1>SistemaSJavalin Sprint1</h1>
+	</div>
+
+	<div class="body">
+
+		<h2>Introduction</h2>
+		<p><b>Goal</b>: Realizzazione in Java del seguente
+			<a href='https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.7'>servizio</a> di
+			valutazione di espressioni matematiche.
+		</p>
+
+		<h2>Requirements</h2>
+
+		<p>
+			Il committente fissa i seguenti requisiti:
+		<ol>
+			<li>realizzare un servizio Java che calcoli i valori dell'espressione sin(x) + cos(√3 * x)</li>
+			<li>utilizzare il javalin server per abilitare la ricezione di messaggi via WebSocket, ma anche HTTP/1 e
+				HTTP2</li>
+			<li>all'utente verrà presentata una pagina html che gli permetta di specificare la x per cui si vuole
+				ottenere il risulato e la modalità di interazione (WebSocket, Get o Post)</li>
+			<li>il deployment dell'applicazione deve avvenire mediante Docker</li>
+		</ol>
+		</p>
+
+		<h2>Requirement analysis</h2>
+
+		<p>
+			Ragionando sui requisiti forniti, risulterà necessario avere:
+		<ol>
+			<li>una funzione eval che prenda in input un numero reale x e restituisca il risultato della valutazione
+				della funzione desiderata</li>
+			<li>un server javalin per la gestione del flusso di messaggi in arrivo da e verso il componente realizzato
+			</li>
+		</ol>
+		</p>
+		<h2>Problem analysis</h2>
+
+		<p>
+			Come primo passo, si definirà l'architettura del sistema. In accordo ai principi delle Clean
+			Architecture e in modo dunque da evitare che la scelta del framework da utilizzare influenzi il
+			dominio, il sistema verrà strutturato a livelli:
+			<img src="./img/architettura_sistema_v4.png"></img>
+		<ol>
+			<li><b>livello di infrastruttura:</b> qui opera javalin, gestendo i protocolli e prelevando dai messaggi le
+				informazioni rilevanti per il livello di dominio;</li>
+			<li><b>livello di adattamento:</b> è il livello intermedio che trasforma i dati di basso livello forniti
+				dall'infrastruttura nei dati richiesti dall'applicazione;</li>
+			<li><b>livello di dominio:</b> la funzione eval vista prima definisce la business logic del sistema,
+				indipendente da javalin e protocolli vari.</li>
+		</ol>
+		</p>
+		<p>
+			In secondo luogo, verrà trattato come i componenti del sistema interagiranno tra di loro. A tal
+			proposito
+			l'interfaccia <a href="https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#subsection.9.2.1">
+				IAppMessage</a> definirà la struttura dei messaggi che le due componenti useranno per
+			comunicare.
+		</p>
+
+		<h2>Test plans</h2>
+
+		<p></p>
+
+		<h2>Project</h2>
+
+		<p>Riporto qui l'implementazione realizzata dell'interfaccia IOutDev: <a
+				href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/conway26GuiHtml/src/main/resources/main/java/conway/devices/ConwayWebOutDev.java">ConwayWebOutDev</a>.
+		</p>
+
+		<h2>Testing</h2>
+
+		<p></p>
+
+		<h2>Deployment</h2>
+
+		<p>
+			Avviene tramite piattaforma Docker grazie ai seguenti file:
+		<ul>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/conway26GuiHtml/Dockerfile">Dockerfile</a>
+			</li>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/conway26GuiHtml/conway26GuiHtml.yaml">conway26GuiHtml.yaml</a>
+			</li>
+		</ul>
+		</p>
+
+		<h2>Maintenance</h2>
+
+		<p></p>
+
+		<br /><br />
+	</div>
+
+	<h5>
+		<img src="./img/pic.jpeg" width="15%" height="15%">
+		By Cesare Tomasi
+		<ul>
+			<li><a href="mailto:cesare.tomasi@studio.unibo.it">e-mail: cesare.tomasi@studio.unibo.it</a></li>
+			<li><a href="https://github.com/Tomassone/IngegneriaSistemiSoftware">git repo:
+					https://github.com/Tomassone/IngegneriaSistemiSoftware</a></li>
+			<ul>
+	</h5>
+</body>
+
+</html>
