@@ -1,330 +1,125 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
+
 <head>
 
-<link rel="stylesheet" type="text/css" href="css/mystyle.css">
-<!--
+	<link rel="stylesheet" type="text/css" href="css/mystyle.css">
+	<!--
     <script type="text/javascript" src="../css/issStyle.js"></script>
 -->
-    
+
 </head>
-<title>Sprint1: conway26Java_v0</title>
- 
-    
+<title>Sprint1: conway26Java</title>
 
 <body>
-<div id="top">
-<h1>ConwayLife Sprint1</h1>
-</div>  
+	<div id="top">
+		<h1>ConwayLife Sprint1</h1>
+	</div>
 
-<div class="body">  
+	<div class="body">
 
-<h2>Introduction</h2>
-<b>Goal</b>: Realizzazione in Java del
-<a href='https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.6'>GAME OF LIFE DI CONWAY</a>
-limitatamente al <b>requisito  R1</b>.
+		<h2>Introduction</h2>
+		<p><b>Goal</b>: Realizzazione in Java del
+			<a href='https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.6'>GAME OF LIFE DI
+				CONWAY</a>.
+		</p>
 
-<h2>Requirements</h2>
+		<h2>Requirements</h2>
 
- 
-<!-- <div class="remark"> -->
-<pre>
-R1  Realizzare una versione in Java del gioco Life di Conway, come gioco zero-player. 
-    Il gioco consiste nell’introdurre una Griglia di Celle il cui stato (cella ‘viva’ o cella ‘morta’) 
-    evolve come stabilito dallle regole di ConwayLife
+		<!-- <div class="remark"> -->
+		<p>
+			<b>R1:</b> Realizzare una versione in Java del gioco Life di Conway, come gioco zero-player.
+			Il gioco consiste nell’introdurre una Griglia di Celle il cui stato (cella ‘viva’ o cella ‘morta’) evolve
+			come stabilito dallle regole di ConwayLife
+		</p>
+		<p>
+			<b>R2:</b> L’utente umano deve poter:
+		<ul>
+			<li>specificare la configurazione iniziale della griglia del gioco</li>
+			<li>vedere l’evoluzione del gioco in forma opportuna
+				(si veda <a href='https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#section.6.3'>Problema
+					della vista del gioco</a> )</li>
+			<li>fermare e far ripartire l’evoluzione del gioco</li>
+			<li>pulire (a gioco fermo) la configurazione della griglia del gioco</li>
+		</ul>
+		</p>
 
-R2  L’utente umano deve poter:
-     - specificare la configurazione iniziale della griglia del gioco	
-     - vedere l’evoluzione del gioco in forma opportuna 
-        (si veda <a href='https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#section.6.3'>Problema della vista del gioco</a> )
-     - fermare e far ripartire l’evoluzione del gioco
-     - pulire (a gioco fermo) la configurazione della griglia del gioco
+		<h2>Requirement analysis</h2>
 
-</pre>
-  
+		<p>
+			Dopo aver parlato col committente, formalizzo i seguenti modelli di Cell (entità unitaria che può essere
+			viva o morta), Grid (entità bidimensionale composta da celle) e Life (descrizione formale regole
+			del gioco):
+		<ul>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/ICell.java">ICell</a>
+			</li>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/IGrid.java">IGrid</a>
+			</li>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/LifeInterface.java">LifeInterface</a>
+			</li>
+		</ul>
+		</p>
 
-<h2>Requirement analysis</h2>
+		<h2>Problem analysis</h2>
 
-<!-- Definizione entità citate nei requisiti (cosa intende il committente per Cell, Grid, Life?) -->
+		<img src="./img/architettura_sistema_v1.png">
 
-<pre>
-Dopo aver parlato col committente, formalizzo i seguenti modelli di Cell, Grid e Life (descrizione regole del gioco):
+		<h2>Test plans</h2>
 
-public interface ICell {
-	void setStatus(boolean v); //perchè la cella ha la capacità di settare il proprio stato a vivo o morto (true or false)
-	boolean isAlive(); //deve potere rispondere se gli chiedo se è viva o morta
-	void switchCellState(); //perchè la cella deve poter passare da viva a morta o da morta a viva
-}
+		<p>
+			Necessari per esprimere tutti quei requisiti relativi alle entità modellate, ma che le sole interfacce non
+			sono in grado di comunicare autonomamente:
+		<ul>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/test/CellTest.java">CellTest</a>
+			</li>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/test/GridTest.java">GridTest</a>
+			</li>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/test/LifeTest.java">LifeTest</a>
+			</li>
+		</ul>
+		</p>
 
-public interface IGrid { 
-/*    entità composta da celle (rispondiamo alla domanda: è unitaria o composta?); 
-      quante dimensioni ha? ne ha due;
-      quali sono queste dimensioni? altezza e lunghezza (tutte proprietà strutturali);
-*/
-	  public int getRowsNum(); /*[primitiva -> operazione che posso realizzare conoscendo solo
-                                               la rappresentazione interna dell'entità]*/
-	  public int getColsNum(); //[primitiva]
-	  public void setCellValue(int x, int y, boolean state); //[composta]
-	  public ICell getCell(int x, int y); //[primitiva]
-	  public boolean getCellValue(int x, int y); //[composta]
-	  public void reset(); //[composta]
-}
+		<h2>Project</h2>
 
-public interface LifeInterface {
-    /* Entità composta (da una griglia) */
-	/** Calcola l'evoluzione dello stato alla generazione successiva; */
-    void nextGeneration();
+		<p>
+			Implementazioni (sottoforma di classi) in codice Java delle interfacce in precedenza definite:
+		<ul>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/Cell.java">Cell</a>
+			</li>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/Grid.java">Grid</a>
+			</li>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/Life.java">Life</a>
+			</li>
+		</ul>
+		</p>
 
-    /** Restituisce lo stato di una cella specifica */
-    boolean isAlive(int row, int col);
+		<h2>Testing</h2>
 
-    /** Imposta lo stato di una cella */
-    void setCell(int row, int col, boolean alive);
+		<h2>Deployment</h2>
 
-    /** Restituisce il numero di righe e colonne */
-//    int getRows();
-//    int getCols();
-    
-    /** Restituisce la Cella */
-    ICell getCell(int x, int y);
-    
-    /** Restituisce la grid */
-    IGrid getGrid();
-    
-    /** pulisce */
-    void resetGrid();
-    
-    /** Restituisce una rappresentazione grafica testuale della griglia*/
-    //public String gridRep( );
+		<h2>Maintenance</h2>
 
-}
+		<br /><br />
+	</div>
 
-/* In Java, è valido il modello di interazione tramite chiamata 
-   a funzione e passaggio di controllo. */
-
-/* TEST PLANS:
-   Necessari per esprimere tutti quei
-   requisiti che le interfacce non sono
-   in grado di esprimere autonomamente.*/
-
-//stato vivo/morto rappresentato come true/false
-public class CellTest {
-private ICell c;
-
-	@Before
-	public void setup() {
-		System.out.println("ConwayLifeTest | setup");	
-	    c = new Cell();
-	}
-	@After
-	public void down() {
-		System.out.println("ConwayLifeTest | down");
-	}
-	
-	@Test
-	public void testCellAlive() {
-		System.out.println("ConwayLifeTest | doing alive");
-		c.setStatus(true);
-		boolean r = c.isAlive();
-		assertTrue(r);
-		
-	}
-	
-	@Test
-	public void testCellDead() {
-		System.out.println("ConwayLifeTest | doing dead");
-		c.setStatus(false);
-		boolean r = c.isAlive();
-		assertTrue( !r);
-	}	
-}
-
-/* valori di lunghezza/larghezza strettamente positivi;
-   coordinate delle celle nel metodo get rispettoso di
-   un certo range;
-   metodo di reset funzionante come ci aspettiamo; */
-
-public class GridTest {
-	private static final int nRows=5;
-	private static final int nCols=5;
-	
-private IGrid grid;
-
-	@Before
-	public void setup() {
-		System.out.println("GridTest | setup");	
-		grid= new Grid(nRows,nCols);
-	}
-	@After
-	public void down() {
-		System.out.println("GridTest | down");
-	}
-	
-	@Test
-	public void testDims() {
-		System.out.println("testDims ---------------------" );
-		int nr = grid.getRowsNum();
-		int nc = grid.getColsNum();
-		assertTrue( nr==nRows && nc==nCols );
-	}
-	@Test
-	public void testCGridCellValue() {
-		System.out.println("testCGridCellValue ---------------------" );
-		grid.setCellValue(0,0,true);
-		assertTrue(   grid.getCellValue(0,0) );
-		assertFalse(  grid.getCellValue(0,1) );
-	}
-	/*@Test
-	public void testGridRep() {
-		System.out.println("testGridRep ---------------------" );
- 		System.out.println(""+grid);
-		assertTrue( grid.toString().startsWith(". . . . ."));
-	}
-	@Test
-	public void testPrintGrid() {
-		System.out.println("testPrintGrid ---------------------" );
-		grid.setCellValue(0,0,true);
-		grid.setCellValue(0,1,true);
-		grid.setCellValue(0,2,true);
-		grid.setCellValue(0,3,true);
-		grid.setCellValue(0,4,true);
-		//grid.printGrid();
-	}*/
-	@Test
-	public void testReset() {
-		System.out.println("GridTest | testReset");
-		grid.setCellValue(0,0,true);
-		grid.setCellValue(0,1,true);
-		grid.setCellValue(0,2,true);
-		grid.setCellValue(0,3,true);
-		grid.setCellValue(0,4,true);
-		grid.reset();
-		assertFalse(grid.getCellValue(0,0));
-		assertFalse(grid.getCellValue(0,1));
-		assertFalse(grid.getCellValue(0,2));
-		assertFalse(grid.getCellValue(0,3));
-		assertFalse(grid.getCellValue(0,4));
-	}
-}
-
-public class ConwayLifeTest {
-	private static final int nRows=5;
-	private static final int nCols=5;
-	private LifeInterface lifemodel; 
-
-	@Before
-	public void setup() {
-		System.out.println("ConwayLifeTest | setup");	
-		lifemodel = Life.CreateLife(nRows,nCols);
-	}
-
-	@After
-	public void down() {
-		System.out.println("ConwayLifeTest | down");
-	}
-
- 
-	//@Test
-	public void testAppl() {
-		LifeInterface gameModel       = new Life(nRows, nCols);
-		IOutDev outputDevice          = new MockOutdev();
-		GameController lifeController = new LifeController(gameModel, outputDevice);
-		int genTime                   = lifeController.getGenTime();
-        lifeController.switchCellState(2, 1);
-        lifeController.switchCellState(2, 2);
-        lifeController.switchCellState(2, 3);
-        lifeController.onStart();
-        //gameModel.nextGeneration();
-        int nstep = 4;
-        int delay = genTime * nstep;
-        lifeController.onStart();
-        CommUtils.delay(delay);
-        lifeController.onStop();
-        assertTrue( lifeController.numEpoch() == (nstep-1) );
-        lifeController.onClear();
-        outputDevice.close();
-        assertTrue( lifeController.numEpoch() == 0 );
-        
-//        MainConwayLifeJava app = new MainConwayLifeJava();
-//        app.configureTheSystemWitMockOutdev();
-	}
-	
-	
-	@Test
-	public void testOscilla() {
-		System.out.println("testOscilla ---------"  );
-		// Configurazione orizzontale
-	    lifemodel.setCell(2, 1, true); 
-	    lifemodel.setCell(2, 2, true);
-	    lifemodel.setCell(2, 3, true);
-	    System.out.println("testOscilla | Stato Iniziale:\n" + lifemodel.getGrid());
-
-	    lifemodel.nextGeneration();
-	    System.out.println("testOscilla | after 1 gen:\n" + lifemodel.getGrid());
-	    // Verifica che sia diventato verticale
-	    assertTrue(lifemodel.isAlive(1, 2)); 
-	    assertTrue(lifemodel.isAlive(2, 2));
-	    assertTrue(lifemodel.isAlive(3, 2));
-	    assertFalse(lifemodel.isAlive(2, 1));
-
-	    lifemodel.nextGeneration();
-	    System.out.println("testOscilla | after 2 gen :\n" + lifemodel.getGrid());
-	    // Verifica che sia tornato orizzontale (Periodo 2)
-	    assertTrue(lifemodel.isAlive(2, 1));
-	    assertTrue(lifemodel.isAlive(2, 2));
-	    assertTrue(lifemodel.isAlive(2, 3));
-	}	
-</pre>
-
-<h2>Problem analysis</h2> 
-
-<pre>
-
-/* - Primo passo: chiedersi qual è l'architettura del sistema? -> In questo caso 
-abbiamo n enti distinti ed eterogeneti che comunicano tramite client/server 
-scambio di messaggi. Chiaramente sarà necessario un protocollo di comunicazione 
-per il trasporto del relativo payload. Oltre a quello servirà una standardizz.
-del linguaggio dei payload (grammatica -> secondo o terzo tipo). Avrò un inteprete 
-per il supplemento della comunicazione. Codice del server che non contiene la 
-logica applicativa ma che fa solo da intermediario.
-
- - In secondo luogo, come interagiscono i pezzi tra di loro. 
- - Infine il comportamento.
-
- - Effetto geyser: termine con cui il prof si riferisce al fatto che quando il server
- risponde al client il messaggio risulta provenira dall'architettura sottostante (dal 
- profondo, come un "geyser").*/
- 
-</pre>
-
-<h2>Test plans</h2> 
-
-<h2>Project</h2> 
-
-<h2>Testing</h2> 
-
-<h2>Deployment</h2> 
- 
-<h2>Maintenance</h2> 
- 
-<!-- USEFUL
-<table style="width:100%" border="1">
-<tr>
-<td style="width:50%">
-</td>
-<td></td>
-</tr>
-</table>
--->
-	      	
-<br/><br/> 	
-</div>  
-
-<div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
-By CesareTomasi email: cesare.tomasi@studio.unibo.it, 
-<!-- <img src="./img/mbot-S.jpg" alt="mbot" width="15%" height="15%"> -->
-<img src="./img/emiglio.png" alt="photo" width="15%" height="15%">
-GIT repo: https://github.com/Tomassone/IngegneriaSistemiSoftware
-</div> 
+	<h5>
+		<img src="./img/pic.jpeg" width="15%" height="15%">
+		By Cesare Tomasi
+		<ul>
+			<li><a href="mailto:cesare.tomasi@studio.unibo.it">e-mail: cesare.tomasi@studio.unibo.it</a></li>
+			<li><a href="https://github.com/Tomassone/IngegneriaSistemiSoftware">git repo:
+					https://github.com/Tomassone/IngegneriaSistemiSoftware</a></li>
+			<ul>
+	</h5>
 </body>
+
 </html>

@@ -1,87 +1,73 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
+
 <head>
 
-<link rel="stylesheet" type="text/css" href="css/mystyle.css">
-<!--
+    <link rel="stylesheet" type="text/css" href="css/mystyle.css">
+    <!--
     <script type="text/javascript" src="../css/issStyle.js"></script>
 -->
-    
+
 </head>
-   
-<title>conway26JavaSwing_v0</title></head>
-    
+<title>Sprint2: conway26JavaSwing</title>
 
 <body>
-<div id="top">
-<h1>ConwayLife Sprint2</h1>
-</div>  
+    <div id="top">
+        <h1>ConwayLife Sprint2</h1>
+    </div>
 
-<div class="body">  
+    <div class="body">
 
-<h2>Introduction</h2>
-<b>Goal</b>: dotare il 
-<a href='https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.6'>GAME OF LIFE DI CONWAY</a>
-di una interfaccia grafica di interazione con l'utente, per realizzare il <b>requisito R2</b>.
- 
-<h2>Requirements</h2>
+        <h2>Introduction</h2>
+        <p><b>Goal</b>: Realizzazione in Java del
+            <a href='https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.6'>GAME OF LIFE DI
+                CONWAY</a>.
+        </p>
 
- 
-<!-- <div class="remark"> -->
-<pre>
-R1: Realizzare una versione in Java del gioco Life di Conway, come gioco zero-player. 
-    Il gioco consiste nell’introdurre una Griglia di Celle il cui stato (cella ‘viva’ o cella ‘morta’) 
-    evolve come stabilito dallle regole di ConwayLife
+        <h2>Requirements</h2>
 
-R2: L’utente umano deve poter:
-     - specificare la configurazione iniziale della griglia del gioco	
-     - vedere l’evoluzione del gioco in forma opportuna 
-        (si veda <a href='https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#section.6.3'>Problema della vista del gioco</a> )
-     - fermare e far ripartire l’evoluzione del gioco
-     - pulire (a gioco fermo) la configurazione della griglia del gioco
+        <!-- <div class="remark"> -->
+        <p>
+            <b>R1:</b> Visualizzare e interagire con il gioco Life di Conway con un'interfaccia Java Swing.
+        </p>
 
-</pre>
-  
+        <h2>Requirement analysis</h2>
 
-<h2>Requirement analysis</h2>
- 
+        <p>
+            Risulta necessario definire la struttura che l'interfaccia usata dall'utente dovrà avere per comunicare
+            correttamente con il dominio realizzato nello sprint precedente: <a
+                href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/IOutDev.java">IOutDev</a>.
+        </p>
 
-<h2>Problem analysis</h2>
- 
+        <h2>Problem analysis</h2>
 
-<h2>Test plans</h2> 
+        <h2>Test plans</h2>
 
+        <h2>Project</h2>
 
-<h2>Project</h2> 
- 
- 
+        <p>
+            L'interfaccia IOutDev viene implementata dalla classe Java <a
+                href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint2/conway26JavaSwing/src/main/java/conway/devices/ConwayLifeGridClaude.java">ConwayLifeGridClaude</a>.
+        </p>
 
-<h2>Testing</h2> 
- 
+        <h2>Testing</h2>
 
-<h2>Deployment</h2> 
+        <h2>Deployment</h2>
 
- 
-<h2>Maintenance</h2> 
- 
-<!-- USEFUL
-<table style="width:100%" border="1">
-<tr>
-<td style="width:50%">
-</td>
-<td></td>
-</tr>
-</table>
--->
-	      	
-<br/><br/> 	
-</div>  
+        <h2>Maintenance</h2>
 
-<div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
-By CesareTomasi email: cesare.tomasi@studio.unibo.it, 
-<!-- <img src="./img/mbot-S.jpg" alt="mbot" width="15%" height="15%"> -->
-<img src="./img/emiglio.png" alt="photo" width="15%" height="15%">
-GIT repo: https://github.com/Tomassone/IngegneriaSistemiSoftware
-</div> 
+        <br /><br />
+    </div>
+
+    <h5>
+        <img src="./img/pic.jpeg" width="15%" height="15%">
+        By Cesare Tomasi
+        <ul>
+            <li><a href="mailto:cesare.tomasi@studio.unibo.it">e-mail: cesare.tomasi@studio.unibo.it</a></li>
+            <li><a href="https://github.com/Tomassone/IngegneriaSistemiSoftware">git repo:
+                    https://github.com/Tomassone/IngegneriaSistemiSoftware</a></li>
+            <ul>
+    </h5>
 </body>
+
 </html>
