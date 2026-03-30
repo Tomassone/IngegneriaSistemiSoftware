@@ -1,68 +1,26 @@
+<!DOCTYPE html>
+<html>
 
-<script>
+<head>
+	<title>CallerBasic</title>
+	<link rel="stylesheet" type="text/css" href="mystyle.css">
+</head>
 
- function  callWS(msgtosend){
- /*1*/const socketWS = 
-   new WebSocket("ws://localhost:8080/eval");
+<body>
+	<h1>Valutazione: sin(x) + cos(&radic;3 * x)</h1>
+	<h2>Digita x:</h2>
+	<div>
+		<input type="number" id="InputValue" value="0.0">
+		<p>
+			<button onclick="callHTTPGet(document.getElementById('InputValue').value)">Ottieni risultato (GET)</button>
+			<button onclick="callHTTPPost(document.getElementById('InputValue').value)">Ottieni risultato
+				(POST)</button>
+			<button onclick="callWS(document.getElementById('InputValue').value)">Ottieni risultato (WS)</button>
+		</p>
+	</div>
 
- /*2*/socketWS.onopen = () => {
-     console.log("callWS | Connesso a eval");
-     socketWS.send(msgtosend);
-   }
+	<div id="ResultValue"></div>
+	<script src="CallerBasic.js"></script>
+</body>
 
- /*3*/socketWS.onmessage = (event) => {
-     console.log("callWS | onmessage:",event.data);
-   }
- }//callWS
-
- 
- async function testHTTPGet() {
-   try {
-     const url = 'http://localhost:8080/eval?x=-4';
-     const response = await fetch(url);
-
-     // Controlla se il server ha risposto con un errore (es. 404 o 500)
-     if (!response.ok) {
-       throw new Error(`Errore del server: ${response.status}`);
-     }
-	 //const data = await response ;
-     const data = await response.json(); // Converte la risposta da JSON a oggetto JS
-     console.log('testHTTPGet | Dati ricevuti con successo:', data);
-   } catch (error) {
-     console.error('testHTTPGet | Errore:', error);
-   }
- }
- 
- async function testHTTPPost() {
-     try {
-		 const url = 'http://localhost:8080/evaluate';
-         const response = await fetch(url, {
-             method: 'POST', // Specifica il metodo
-             headers: {
-                 'Content-Type': 'application/json' // Dice al server che stiamo inviando JSON
-                 // 'Authorization': 'Bearer IL_TUO_TOKEN' // Aggiungi questo se serve autenticazione
-             },
-             body: JSON.stringify({ x : 4.0 }) // Converte l'oggetto JS in una stringa JSON
-         });
-		 console.log('testHTTPPost | Sent:' );
-		 
-         const result = await response.json();
-         console.log('testHTTPPost |  result=', result);
-     } catch (error) {
-         console.error('testHTTPPost | Errore durante il caricamento:', error);
-     }
- }
- 
- 
- 
- //callWS("5.0")
- callWS("0.0")
- 
- testHTTPGet()
- testHTTPPost()  //interferisce con callHttp1
- 
-  
-</script>
-	
-	
- 
+</html>
