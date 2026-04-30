@@ -44,8 +44,37 @@
 		<p>
 			Dall'analisi dei requisiti, emerge dal sistema la necessità di 3 entità distinte, cioè 3 lucciole.
 			Esse verranno modellate come QActor <b>firefly</b>, data la loro natura allo stesso tempo reattiva ed
-			attiva.
+			attiva. Si ricorrererà anche ad un attore "di utilità" <b>creator</b>, per l'istanziazione agevole dei 3 attori firefly richiesti.
 		</p>
+
+		<pre>
+			QActor creator context ctxfirefly{
+			State s0 initial{
+				delay 500
+					create firefly _"0"
+					create firefly _"1"
+					create firefly _"2"
+				}
+			}
+
+			QActor firefly context ctxfirefly {
+				State s0 initial{
+				/* inizializzazione stato lucciola (frequenza randomizzata) */
+				}
+				Goto flash
+				State flash{
+					/* cambio di stato acceso/spento -> comunicato all'attore griddisplay (descritto sotto)*/
+				}
+				Transition t0
+				whenTimeVar Freq -> flash /* flash ripete ogni Freq secondi */
+				whenEvent syncevent -> sync /* cambio di stato dopo l'arrivo dell'evento sync (descritto sotto)*/
+
+				State sync{
+					/* sincronizzazione frequenza lucciole */
+				}
+				Goto flash
+			}
+		</pre>
 
 		<p>
 			In secondo luogo, il sistema si comporrà anche di un'entità orchestratrice (pure in questo caso
@@ -55,9 +84,26 @@
 			Tale passaggio avverrà tramite l'emissione dell'evento <b>syncevent</b>.
 		</p>
 
+		<pre>
+			QActor orchestrator context ctxfirefly {
+				State s0 initial {
+					/* inizializzazione stato orchestratore; inizio conteggio */
+				}
+				Transition t0
+				whenTimeVar Timer -> work /* stato varia quando il timer scade */
+
+				State work{
+					/* invio di evento syncevent alle firefly */
+				}
+				Transition t0
+				whenTimeVar Timer -> work /* il ciclo poi si ripete */
+			}
+		</pre>
+
 		<p>
 			Infine, si ricorrererà ad un'entità che si occuperò della visualizzazione a schermo
-			dello stato delle enità lucciole. Essa verrà modellato dal QActor <b>griddisplay</b>.
+			dello stato delle enità lucciole. Essa verrà modellato dal QActor <b>griddisplay</b>, dato come già
+			realizzato.
 		</p>
 
 		<h2>Problem analysis</h2>
@@ -85,13 +131,11 @@
 			Implementazioni degli attori in precedenza definiti:
 		<ul>
 			<li><a
-					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/Cell.java">Cell</a>
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/fireflySynch/src/fireflySynch.qak">firefly
+					e orchestrator</a>
 			</li>
 			<li><a
-					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/Grid.java">Grid</a>
-			</li>
-			<li><a
-					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/Life.java">Life</a>
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/griddisplay/src/griddisplay.qak">griddisplay</a>
 			</li>
 		</ul>
 		</p>
