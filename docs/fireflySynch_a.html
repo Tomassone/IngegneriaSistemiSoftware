@@ -49,21 +49,18 @@
 
 		<pre>
 			QActor creator context ctxfirefly{
-			State s0 initial{
-				delay 500
-					create firefly _"0"
-					create firefly _"1"
-					create firefly _"2"
+				State s0 initial{
+					/* istanziazione 3 attori firefly */
 				}
 			}
 
-			QActor firefly context ctxfirefly {
+			QActor firefly context ctxfirefly{
 				State s0 initial{
 				/* inizializzazione stato lucciola (frequenza randomizzata) */
 				}
 				Goto flash
 				State flash{
-					/* cambio di stato acceso/spento -> comunicato all'attore griddisplay (descritto sotto)*/
+					/* cambio di stato acceso/spento -> comunicato in dispatch all'attore griddisplay (descritto sotto)*/
 				}
 				Transition t0
 				whenTimeVar Freq -> flash /* flash ripete ogni Freq secondi */
