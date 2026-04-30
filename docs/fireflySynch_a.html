@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+
+	<link rel="stylesheet" type="text/css" href="css/mystyle.css">
+	<!--
+    <script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+
+</head>
+<title>fireflySynch_a</title>
+
+<body>
+	<div id="top">
+		<h1>fireflySynch_a</h1>
+	</div>
+
+	<div class="body">
+
+		<h2>Introduction</h2>
+		<p><b>Goal</b>: Costruire il simulatore di un sistema costituito da 3 lucciole</a>.
+		</p>
+
+		<h2>Requirements</h2>
+
+		<p>
+		<ul>
+			<li>
+				Il sistema deve essere costituito da tre lucciole indipendenti.
+			</li>
+			<li>
+				Inizialmente, le lucciole lampeggiamo ciascuna con una
+				frequenza (costante) propria.
+			</li>
+			<li>
+				Dopo 10 secondi le lucciole devono lampeggiare in modo sincronizzato.
+			</li>
+		</ul>
+		</p>
+
+		<h2>Requirement analysis</h2>
+
+		<p>
+			Dall'analisi dei requisiti, emerge dal sistema la necessità di 3 entità distinte, cioè 3 lucciole.
+			Esse verranno modellate come QActor <b>firefly</b>, data la loro natura allo stesso tempo reattiva ed
+			attiva.
+		</p>
+
+		<p>
+			In secondo luogo, il sistema si comporrà anche di un'entità orchestratrice (pure in questo caso
+			in forma del QActor <b>orchestrator</b>), che si occuperà di tenere conto del passaggio del tempo e che
+			comunicherà alle
+			lucciole di sincronizzarsi (la frequenza comune sarà una variabile nascosta nel file .qak delle lucciole).
+			Tale passaggio avverrà tramite l'emissione dell'evento <b>syncevent</b>.
+		</p>
+
+		<p>
+			Infine, si ricorrererà ad un'entità che si occuperò della visualizzazione a schermo
+			dello stato delle enità lucciole. Essa verrà modellato dal QActor <b>griddisplay</b>.
+		</p>
+
+		<h2>Problem analysis</h2>
+
+		<p>
+			Come primo passo, si definirà l'architettura del sistema <b>fireflySynch</b>.
+			Avremo due contesti distinti: ctxfirefly (per le firefly e per l'orchestrator) e ctxgrid (per griddisplay).
+		</p>
+
+		<img src="./img/architettura_sistema_firefly.png"></img>
+
+		<p>
+			Per semplicità, si supporrà che i diversi attori eseguano in un contesto locale (dunque sullo stesso
+			computer),
+			anche se chiaramente sarebbe possibile per il sistema funzionare nel distribuito.
+		</p>
+
+		<h2>Test plans</h2>
+
+		<p></p>
+
+		<h2>Project</h2>
+
+		<p>
+			Implementazioni degli attori in precedenza definiti:
+		<ul>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/Cell.java">Cell</a>
+			</li>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/Grid.java">Grid</a>
+			</li>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/Life.java">Life</a>
+			</li>
+		</ul>
+		</p>
+
+		<h2>Testing</h2>
+
+		<p></p>
+
+		<h2>Deployment</h2>
+
+		<p></p>
+
+		<h2>Maintenance</h2>
+
+		<p></p>
+
+		<br /><br />
+	</div>
+
+	<h5>
+		<img src="./img/pic.jpeg" width="15%" height="15%">
+		By Cesare Tomasi
+		<ul>
+			<li><a href="mailto:cesare.tomasi@studio.unibo.it">e-mail: cesare.tomasi@studio.unibo.it</a></li>
+			<li><a href="https://github.com/Tomassone/IngegneriaSistemiSoftware">git repo:
+					https://github.com/Tomassone/IngegneriaSistemiSoftware</a></li>
+			<ul>
+	</h5>
+</body>
+
+</html>

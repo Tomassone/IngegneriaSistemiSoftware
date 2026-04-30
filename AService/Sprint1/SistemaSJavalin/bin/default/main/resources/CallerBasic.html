@@ -3,7 +3,6 @@
 
 <head>
 	<title>CallerBasic</title>
-	<script src="CallerBasic.js"></script>
 	<link rel="stylesheet" type="text/css" href="mystyle.css">
 </head>
 
@@ -12,13 +11,16 @@
 	<h2>Digita x:</h2>
 	<div>
 		<input type="number" id="InputValue" value="0.0">
-		<br><br>
-		<button onclick="testHTTPGet(document.getElementById('InputValue').value)">Ottiene risultato (GET)</button>
-		<button onclick="testHTTPPost(document.getElementById('InputValue').value)">Ottiene risultato (POST)</button>
-		<button onclick="callWS(document.getElementById('InputValue').value)">Ottiene risultato (WS)</button>
+		<p>
+			<button onclick="callHTTPGet(document.getElementById('InputValue').value)">Ottieni risultato (GET)</button>
+			<button onclick="callHTTPPost(document.getElementById('InputValue').value)">Ottieni risultato
+				(POST)</button>
+			<button onclick="callWS(document.getElementById('InputValue').value)">Ottieni risultato (WS)</button>
+		</p>
 	</div>
 
 	<div id="ResultValue"></div>
+	<script src="CallerBasic.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,70 @@
+System fireflysynch
+
+Dispatch cellstate : cellstate(X,Y,COLOR)
+Event syncevent : syncevent(x)
+
+Context ctxfirefly ip [ host="localhost" port=8040 ] 
+Context ctxgrid    ip [ host="127.0.0.1" port=8050 ]
+
+ExternalQActor griddisplay context ctxgrid
+
+QActor creator context ctxfirefly{
+	State s0 initial{    
+		delay 500 
+		create firefly _"0"
+		create firefly _"1"
+		create firefly _"2"
+ 	} 
+}   
+
+ QActor firefly context ctxfirefly  dynamicOnly{      
+	[#   
+	   var X = 0
+	   var Y = 0
+	   var Freq = 500L
+	   
+	   fun setCellCoords()  {
+     		val coordY = name.replace("firefly_","")    
+      		Y  = coordY.toInt()
+  		}
+ 	#] 
+	State s0 initial{
+		[# setCellCoords() #]
+		[# Freq = java.util.Random().nextLong(1000L, 2000L) #]  
+		println("$name | X=$X Y=$Y Freq=$Freq") color magenta
+	}
+	Goto flash
+	State flash{
+ 		forward griddisplay -m  cellstate : cellstate($X, $Y, 1) 				
+ 		delay 500	
+ 		forward griddisplay -m  cellstate : cellstate($X, $Y, 0) 				
+	}
+	Transition t0 
+		whenTimeVar Freq -> flash
+		whenEvent syncevent -> sync
+				
+	State sync{
+		[# Freq = 500L #]
+	}
+	Goto flash
+}
+
+QActor orchestrator context ctxfirefly {
+	[#
+		var Timer = 10000L
+	#]
+	State s0 initial{
+		println("$name | starts") color yellow
+		delay 10000
+	} 
+	Transition t0 
+		whenTimeVar Timer -> work
+
+	State work{
+		println("$name | syncevent") color yellow	
+		emit syncevent : syncevent(x)
+		delay 10000	
+	}	
+	Transition t0 
+		whenTimeVar Timer -> work
+}
