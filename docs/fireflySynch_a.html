@@ -60,11 +60,13 @@
 				}
 				Goto flash
 				State flash{
-					/* cambio di stato acceso/spento -> comunicato in dispatch all'attore griddisplay (descritto sotto)*/
+					/* cambio di stato acceso/spento -> comunicato in dispatch all'attore
+					griddisplay (descritto sotto)*/
 				}
 				Transition t0
 				whenTimeVar Freq -> flash /* flash ripete ogni Freq secondi */
-				whenEvent syncevent -> sync /* cambio di stato dopo l'arrivo dell'evento sync (descritto sotto)*/
+				whenEvent syncevent -> sync /* cambio di stato dopo l'arrivo 
+				dell'evento sync (descritto sotto)*/
 
 				State sync{
 					/* sincronizzazione frequenza lucciole */
