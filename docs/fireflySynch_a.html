@@ -42,9 +42,35 @@
 		<h2>Requirement analysis</h2>
 
 		<p>
-			Dall'analisi dei requisiti, emerge dal sistema la necessità di 3 entità distinte, cioè 3 lucciole.
-			Esse verranno modellate come QActor <b>firefly</b>, data la loro natura allo stesso tempo reattiva ed
-			attiva. Si ricorrererà anche ad un attore "di utilità" <b>creator</b>, per l'istanziazione agevole dei 3 attori firefly richiesti.
+			Dall'analisi dei requisiti, emerge per il sistema la necessità di 3 entità distinte, cioè 3 lucciole.
+			Esse verranno modellate come QActor <b>firefly</b>, data la loro natura allo stesso tempo reattiva (capacità di reagire a stimoli esterni)
+			ed attiva (necessità di lampeggiare autonomamente). 
+		</p>
+
+		<p>
+			In secondo luogo, il sistema si comporrà anche di un'entità orchestratrice (pure in questo caso
+			in forma del QActor <b>orchestrator</b>), che si occuperà di tenere conto del passaggio del tempo e che
+			comunicherà alle lucciole di sincronizzarsi.
+		</p>
+
+		<p>
+			Infine, si ricorrererà ad un'entità che si occuperò della visualizzazione a schermo
+			dello stato delle entità lucciole. Essa verrà modellato dal QActor <b>griddisplay</b>, dato come già
+			realizzato.
+		</p>
+
+		<h2>Problem analysis</h2>
+
+		<p>
+			Come primo passo, si definirà l'architettura del sistema <b>fireflySynch</b>.
+			Avremo due contesti distinti: ctxfirefly (per le firefly e per l'orchestrator) e ctxgrid (per griddisplay).
+		</p>
+
+		<img src="./img/architettura_sistema_firefly.png"></img>
+
+		<p>
+			Gli attori precedentemente elencati potranno infine essere strutturati nel modo seguente (con l'aggiunta
+			di un ulteriore attore "di utilità" <b>creator</b>, per l'istanziazione agevole dei 3 attori firefly richiesti):
 		</p>
 
 		<pre>
@@ -76,11 +102,9 @@
 		</pre>
 
 		<p>
-			In secondo luogo, il sistema si comporrà anche di un'entità orchestratrice (pure in questo caso
-			in forma del QActor <b>orchestrator</b>), che si occuperà di tenere conto del passaggio del tempo e che
-			comunicherà alle
-			lucciole di sincronizzarsi (la frequenza comune sarà una variabile nascosta nel file .qak delle lucciole).
-			Tale passaggio avverrà tramite l'emissione dell'evento <b>syncevent</b>.
+			Da notare che il passaggio della sincronizzazione avverrà tramite l'emissione dell'evento <b>syncevent</b>
+			da parte dell'orchestrator: esso verrà ricevuto dalle firefly, che aggiorneranno la propria frequenza di lampeggio ad un 
+			valore comune espresso da una variabile nascosta nel file sorgente .qak delle lucciole.
 		</p>
 
 		<pre>
@@ -98,21 +122,6 @@
 				whenTimeVar Timer -> work /* il ciclo poi si ripete */
 			}
 		</pre>
-
-		<p>
-			Infine, si ricorrererà ad un'entità che si occuperò della visualizzazione a schermo
-			dello stato delle enità lucciole. Essa verrà modellato dal QActor <b>griddisplay</b>, dato come già
-			realizzato.
-		</p>
-
-		<h2>Problem analysis</h2>
-
-		<p>
-			Come primo passo, si definirà l'architettura del sistema <b>fireflySynch</b>.
-			Avremo due contesti distinti: ctxfirefly (per le firefly e per l'orchestrator) e ctxgrid (per griddisplay).
-		</p>
-
-		<img src="./img/architettura_sistema_firefly.png"></img>
 
 		<p>
 			Per semplicità, si supporrà che i diversi attori eseguano in un contesto locale (dunque sullo stesso
