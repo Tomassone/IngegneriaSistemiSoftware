@@ -80,12 +80,11 @@
 		</p>
 
 		<p>
-		<h3>Sonar - (<a href="https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.17">entità</a>)
+		<h3>Radar - (<a href="https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.17">entità</a>)
 			che:</h3>
 		<ol>
 			<li>misura la distanza tra gli oggetti e il robot</li>
-			<li>manda un segnale di blocco quando questa distanza è minore di un valore DMIN noto a priori</li>
-			<li>manda un segnale di sblocco se questa distanza è maggiore di DMIN</li>
+			<li>manda periodicamente un evento newDistance che avrà come payload la distanza in metri misurata</li>
 		</ol>
 		</p>
 
