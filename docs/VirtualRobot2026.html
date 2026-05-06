@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+
+	<link rel="stylesheet" type="text/css" href="css/mystyle.css">
+	<!--
+    <script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+
+</head>
+<title>VirtualRobot2026</title>
+
+<body>
+	<div id="top">
+		<h1>VirtualRobot2026</h1>
+	</div>
+
+	<div class="body">
+
+		<h2>Introduction</h2>
+		<p><b>Goal</b>: Costruire un sistema software che comanda un Differential Drive Robot (DDR).</a>.
+		</p>
+
+		<h2>Requirements</h2>
+
+		<p>
+			Costruire un sistema software che comanda un Differential Drive Robot (DDR) in modo che,
+			partendo dalla posizione iniziale HOME, il robot si sposti lungo il perimetro di una stanza rettangolare
+			vuota.
+			Il DDR si deve fermare quando tornato in HOME.
+
+			Il DDR è anche sensibile ai dati rilevati da un Radar.
+			Quando il Radar rileva un 'intruso' a una distanza minore di una distanza prefissata "DMIN":
+
+		<ul>
+			<li>se il DDR si sta muovendo, il DDR si ferma fino a che il Radar non rileva più un 'intruso' così
+				vicino</li>
+			<li>se il DDR è fermo in HOME, il DDR ruota su sè stesso fino a che un 'intruso' così vicino scompare</li>
+		</ul>
+		</p>
+
+		<h2>Requirement analysis</h2>
+
+		<p>
+		<ul>
+			<li>R1: Comando di una sola entità di robot alla volta</li>
+			<li>R2: Il robot comincia in posizione iniziale, chiamata "HOME"</li>
+			<li>R3: Il robot si muove lungo un perimetro</li>
+			<li>R4: Condizione di termine del lavoro del robot è che ritorni in un luogo intorno alla zona che è
+				contrassegnata come HOME</li>
+			<li>R5: Condizione di arresto temporaneo del robot è l'incontro di un'ostacolo percepito a distanza minore
+				di una distanza DMIN</li>
+			<li>R6: Condizione di uscita dallo stato di arresto temporaneo è che l'ostacolo non venga più rilevato a
+				distanza minore di DMIN</li>
+			<li>R7: Se nella zona HOME il robot rileva un ostacolo a distanza minore di DMIN, ruota sul posto fino a
+				quando non trova una direzione sul perimetro in cui può andare e che non abbia un stacolo a distanza
+				minore di DMIN</li>
+		</ul>
+		</p>
+
+		<p>
+			Dall'interazione con il committente è stato possibile evincere e descrivere con più precisione i seguenti
+			concetti:
+
+		<h3>Robot - (<a href="https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.17">entità</a>)
+			che:</h3>
+		<ol>
+			<li>agisce in maniera indipendente</li>
+			<li>conosce il perimetro della stanza</li>
+			<li>si muove solo lungo il perimetro in una o l'altra direzione -> la zona HOME deve essere sul perimetro
+			</li>
+			<li>può muoversi avanti o ruotare su sé stesso</li>
+			<li>una volta che inizia a muoversi si ferma solo se incontra un ostacolo (segnalato da un sonar) o termina
+			</li>
+			<li>può misurare la distanza che percorre per conoscere la propria posizione sul perimetro</li>
+			<li>conoscendo il perimetro percorre linee dritte fino agli angoli, di cui conosce l'ampiezza, qui vi si
+				ferma e rutora di conseguenza</li>
+		</ol>
+		</p>
+
+		<p>
+		<h3>Sonar - (<a href="https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.17">entità</a>)
+			che:</h3>
+		<ol>
+			<li>misura la distanza tra gli oggetti e il robot</li>
+			<li>manda un segnale di blocco quando questa distanza è minore di un valore DMIN noto a priori</li>
+			<li>manda un segnale di sblocco se questa distanza è maggiore di DMIN</li>
+		</ol>
+		</p>
+
+		<p>
+		<h3>HOME - punto o zona del perimetro da cui il robot parte e su cui il robot termina</h3>
+
+		Considerazioni:
+		<ul>
+			<li>è necessario per la partenza del robot da HOME che questi trovi una delle due direzioni sul perimetro
+				prive di ostacoli, e, nel mentre, ruoterà su sé stesso senza termine</li>
+			<li>Essendo il perimetro noto, è possibile considerarlo come l'unione tra una lunghezza e la lista dei suoi
+				angoli. Per identificare la posizione del robot lungo il perimetro è sufficiente utilizzare un float
+				minore
+				della lunghezza del perimetro e considerare che il float rappresenta la quantità di perimetro percorsa
+				in
+				senso orario/antiorario rispetto alla HOME</li>
+			<li>La misurazione delle distanze percorse può essere sotto forma di eventi lanciati dai sensori su ognuna
+				delle due ruote e modellati come <a
+					href="https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.17">attori</a> o come
+				pojo
+				che modifica dinamicamente i valori interni tramite i servizi di movimento.</li>
+		</ul>
+		</p>
+
+		<h2>Problem analysis</h2>
+
+		<p></p>
+
+		<h2>Test plans</h2>
+
+		<p></p>
+
+		<h2>Project</h2>
+
+		<p></p>
+
+		<h2>Testing</h2>
+
+		<p></p>
+
+		<h2>Deployment</h2>
+
+		<p></p>
+
+		<h2>Maintenance</h2>
+
+		<p></p>
+
+		<br /><br />
+	</div>
+
+	<h5>
+		<img src="./img/pic.jpeg" width="15%" height="15%">
+		By Cesare Tomasi
+		<ul>
+			<li><a href="mailto:cesare.tomasi@studio.unibo.it">e-mail: cesare.tomasi@studio.unibo.it</a></li>
+			<li><a href="https://github.com/Tomassone/IngegneriaSistemiSoftware">git repo:
+					https://github.com/Tomassone/IngegneriaSistemiSoftware</a></li>
+			<ul>
+	</h5>
+</body>
+
+</html>
