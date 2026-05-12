@@ -43,26 +43,26 @@
 		<h2>Requirement analysis</h2>
 
 		<p>
-		<ul>
-			<li>R1: Comando di una sola entità di robot alla volta</li>
-			<li>R2: Il robot comincia in posizione iniziale, chiamata "HOME"</li>
-			<li>R3: Il robot si muove lungo un perimetro</li>
-			<li>R4: Condizione di termine del lavoro del robot è che ritorni in un luogo intorno alla zona che è
-				contrassegnata come HOME</li>
-			<li>R5: Condizione di arresto temporaneo del robot è l'incontro di un'ostacolo percepito a distanza minore
-				di una distanza DMIN</li>
-			<li>R6: Condizione di uscita dallo stato di arresto temporaneo è che l'ostacolo non venga più rilevato a
-				distanza minore di DMIN</li>
-			<li>R7: Se nella zona HOME il robot rileva un ostacolo a distanza minore di DMIN, ruota sul posto fino a
-				quando non trova una direzione sul perimetro in cui può andare e che non abbia un stacolo a distanza
-				minore di DMIN</li>
-		</ul>
+			Dall'interazione con il committente è stato possibile evincere e descrivere con più precisione i seguenti
+			concetti:
+		<p>
+
+<<<<<<< HEAD
+		<h3>HOME:</h3>
+
+		<p>
+			In primo luogo, risulterà necessario formalizzare il concetto di stanza, di cui HOME è un sottoinsieme.
+			Si potrà modellare la stanza come un quadrato euclideo di base B e altezza H (entrambe misurate in metri).
+			Dopo aver introdotto una serie di assi cartesiani x e y, si potrà dunque identificare ogni punto della
+			stanza con una coppia di coordinate. Il robot però non occuperà un singolo punto, ma un'intera superficie
+			quadrata di lato R (metri). Risulterà dunque conveniente vedere la stanza come una griglia di celle quadrate
+			di lato R (si dirà dunque che l'unità di misura scelta è l'unità robotica).
 		</p>
 
 		<p>
-			Dall'interazione con il committente è stato possibile evincere e descrivere con più precisione i seguenti
-			concetti:
-
+			Di seguito la formalizzazione in
+			forma di un'interfaccia Java:
+=======
 		<h3>Robot - (<a href="https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.25">entità</a>)
 			che:</h3>
 		<ol>
@@ -86,13 +86,51 @@
 			<li>misura la distanza tra gli oggetti e il robot</li>
 			<li>manda periodicamente un evento newDistance che avrà come payload la distanza in metri misurata</li>
 		</ol>
+>>>>>>> ef48b3651c8fd3dd03e8556c69e6201ca8e38370
 		</p>
 
-		<p>
-		<h3>HOME - punto o zona del perimetro da cui il robot parte e su cui il robot termina</h3>
+		<pre>
+			public interface Coordinates {
+				int x;
+				int y;
 
-		Considerazioni:
+				public int getX();
+				public int getY();
+				public int setX();
+				public int setY();
+			}
+
+			public interface Room {
+				double H; //altezza della stanza in unità robotiche
+				double B; //base della stanza in unità robotiche
+				double R; //valore in metri dell'unità robotica
+				Coordinates homeCoord;
+
+				public double getRoomHeight(); //in metri
+				public double getRoomWidth(); //in metri
+				public Coordinates getHomeCoordinates();
+				public void setRoomHeight(double val); //in metri
+				public void setRoomWidth(double val); //in metri
+				public void setHomeCoordinates(Coordinates val);
+				public boolean isTraversable(Coordinates val); /*per sapere se una
+																 cella è occupata*/
+				public void setTraversable(Coordinates val);
+			}
+		</pre>
+
+		<h3>Radar:</h3>
+
+		<p>
+			Si tratterà di un'entità che riconosce e comunica regolarmente l'eventuale presenza di ostacoli nelle
+			vicinanze del robot, con un range di riconoscimento di massimo DMIN metri. Per via della natura reattiva del
+			radar, è ragionevole pensare che lo si possa formalizzare con un QActor. Ragionando, è possibile intuire
+			come vi siano due modelli possibili di funzionamento:
 		<ul>
+<<<<<<< HEAD
+			<li>tramite l'emissione regolare, da parte del radar, di un evento distance(D), che verrà ricevuto da ogni
+				entità del sistema (non essendo al radar noto il destinatario dell'informazione);</li>
+			<li>tramite una risposta, da parte del radar, ad una richiesta getDistance(D) da parte del sistema.</li>
+=======
 			<li>è necessario per la partenza del robot da HOME che questi trovi una delle due direzioni sul perimetro
 				prive di ostacoli, e, nel mentre, ruoterà su sé stesso senza termine</li>
 			<li>Essendo il perimetro noto, è possibile considerarlo come l'unione tra una lunghezza e la lista dei suoi
@@ -106,8 +144,111 @@
 					href="https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.25">attori</a> o come
 				pojo
 				che modifica dinamicamente i valori interni tramite i servizi di movimento.</li>
+>>>>>>> ef48b3651c8fd3dd03e8556c69e6201ca8e38370
 		</ul>
 		</p>
+
+		<p>
+			Di seguito la formalizzazione in
+			forma di codice:
+		</p>
+
+		<pre>
+			System ddrsys
+			
+			Event radarEvent : distance(D)
+			Context ctxddr ip [ host="localhost" port=8070 ]
+
+			QActor radar context ctxddr {
+				State s0 initial {
+					/* inizializzazione stato radar */
+				}
+				Goto mesureDistance
+				
+				State mesureDistance{
+					emit radarEvent : distance(D)
+				}
+				Transition t0 
+					whenTimeVar Timer -> mesureDistance
+			}
+		</pre>
+
+		<pre>
+			System ddrsys
+			
+			Request getDistance : getDistance(D)
+			Reply radar : distance(D) for getDistance
+
+			Context ctxddr ip [ host="localhost" port=8070 ]
+
+			QActor radar context ctxddrsys {
+				State s0 initial {
+					/* inizializzazione stato radar */
+				}
+				Goto mesureDistance
+				
+				State mesureDistance{
+					/* rilevamento distanza D */
+				}
+				Transition t0 
+					whenTimeVar Timer -> mesureDistance
+					whenRequest getDistance -> answerRequest
+			
+				State answerRequest{
+					onMsg( getDistance : getDistance(D) ){
+						replyTo getDistance with radar : distance( $D )  
+					} 
+				}  
+				Transition t0 
+					whenTimeVar Timer -> mesureDistance
+			}
+		</pre>
+
+		<h3>DDR:</h3>
+
+		<p>
+			Entità passiva capace di attuare comandi. Può muoversi in avanti o indietro e di ruotare su se stesso
+			di 90° in senso orario o antiorario. La realizzazione di esso è già fornita dal committente.
+		</p>
+
+		<h3>Mind:</h3>
+
+		<p>
+			Entità proattiva e reattiva (da qui l'idea di modellarla con un QActor) responsabile di fornire comandi al
+			DDR, in accordo al tipo di comportamento richiesto ed
+			espresso nei requisiti. Chiaramente a tal fine esso dovrà gestire la comunicazione con il radar.
+		</p>
+
+		<p>
+			Di seguito la formalizzazione in
+			forma di codice:
+		</p>
+
+		<pre>
+			QActor mind context ctxddr {
+			State s0 initial {
+				/* inizializzazione stato mente */
+			}
+			Goto work
+			State work {
+				/* muove robot sul perimetro della stanza, 
+				   utilizzando i metodi esposti */
+			}
+			Transition t0
+				whenEvent radarEvent -> handleRadar
+				
+			State handleRadar {
+				onMsg(radar : distance(D)) {
+					[# 
+						var D = payloadArg(0).toLong()
+					#]
+					/* implementazione del comportamento del DDR (dipendente
+					   dal valore di D) descritto nei requisiti */
+				}
+			}
+			Goto s0
+		}
+		</pre>
 
 		<h2>Problem analysis</h2>
 
