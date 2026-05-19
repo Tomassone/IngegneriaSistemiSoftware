@@ -9,11 +9,11 @@
 -->
 
 </head>
-<title>VirtualRobot2026</title>
+<title>DDRBoundary</title>
 
 <body>
 	<div id="top">
-		<h1>VirtualRobot2026</h1>
+		<h1>DDRBoundary</h1>
 	</div>
 
 	<div class="body">
@@ -51,7 +51,7 @@
 
 		<p>
 			In primo luogo, risulterà necessario formalizzare il concetto di stanza, di cui HOME è un sottoinsieme.
-			Si potrà modellare la stanza come un quadrato euclideo di base B e altezza H (entrambe misurate in metri).
+			Si potrà modellare la stanza come un rettangolo euclideo di base B e altezza H (entrambe misurate in metri).
 			Dopo aver introdotto una serie di assi cartesiani x e y, si potrà dunque identificare ogni punto della
 			stanza con una coppia di coordinate. Il robot però non occuperà un singolo punto, ma un'intera superficie
 			quadrata di lato R (metri). Risulterà dunque conveniente vedere la stanza come una griglia di celle quadrate
@@ -97,7 +97,7 @@
 		<p>
 			Si tratterà di un'entità che riconosce e comunica regolarmente l'eventuale presenza di ostacoli nelle
 			vicinanze del robot, con un range di riconoscimento di massimo DMIN metri. Per via della natura reattiva del
-			radar, è ragionevole pensare che lo si possa formalizzare con un QActor. Ragionando, è possibile intuire
+			radar, è ragionevole pensare (volendo realizzare un sistema distribuito) che lo si possa formalizzare con un QActor. Ragionando, è possibile intuire
 			come vi siano due modelli possibili di funzionamento:
 		<ul>
 			<li>tramite l'emissione regolare, da parte del radar, di un evento distance(D), che verrà ricevuto da ogni
@@ -112,7 +112,7 @@
 		</p>
 
 		<pre>
-			System ddrsys
+			System ddrboundary
 			
 			Event radarEvent : distance(D)
 			Context ctxddr ip [ host="localhost" port=8070 ]
@@ -132,14 +132,14 @@
 		</pre>
 
 		<pre>
-			System ddrsys
+			System ddrboundary
 			
 			Request getDistance : getDistance(D)
 			Reply radar : distance(D) for getDistance
 
 			Context ctxddr ip [ host="localhost" port=8070 ]
 
-			QActor radar context ctxddrsys {
+			QActor radar context ctxddrboundary {
 				State s0 initial {
 					/* inizializzazione stato radar */
 				}
@@ -169,7 +169,7 @@
 			di 90° in senso orario o antiorario. La realizzazione di esso è già fornita dal committente.
 		</p>
 
-		<h3>Mind:</h3>
+		<h3>BoundaryWorker:</h3>
 
 		<p>
 			Entità proattiva e reattiva (da qui l'idea di modellarla con un QActor) responsabile di fornire comandi al
