@@ -97,7 +97,8 @@
 		<p>
 			Si tratterà di un'entità che riconosce e comunica regolarmente l'eventuale presenza di ostacoli nelle
 			vicinanze del robot, con un range di riconoscimento di massimo DMIN metri. Per via della natura reattiva del
-			radar, è ragionevole pensare (volendo realizzare un sistema distribuito) che lo si possa formalizzare con un QActor. Ragionando, è possibile intuire
+			radar, è ragionevole pensare (volendo realizzare un sistema distribuito) che lo si possa formalizzare con un
+			QActor. Ragionando, è possibile intuire
 			come vi siano due modelli possibili di funzionamento:
 		<ul>
 			<li>tramite l'emissione regolare, da parte del radar, di un evento distance(D), che verrà ricevuto da ogni
@@ -184,7 +185,7 @@
 		</p>
 
 		<pre>
-			QActor mind context ctxddr {
+			QActor boundaryworker context ctxddrboundary {
 			State s0 initial {
 				/* inizializzazione stato mente */
 			}
@@ -208,6 +209,11 @@
 			Goto s0
 		}
 		</pre>
+
+		<p>
+			Parlando con il committente, è stato deciso che lo SprintO sarà dedicato alla realizzazione del componente
+			<b>boundaryworker</b>.
+		</p>
 
 		<h2>Problem analysis</h2>
 
